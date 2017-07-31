@@ -20,6 +20,8 @@ Softmax = lambda X: exp(X)/exp(X).sum() # x is a vector
 
 # Distances
 nll = lambda p, y: - y * ln(p) - (1 - y) * ln(1 - p)  # any tensor
+
+# Gradients
 d_nll = lambda p, y: (-y + p) / p * (1 - p)  # Derived on p
 norm2 = lambda p, y: (p - y) ** 2
 d_norm2 = lambda p, y: (p - y) / 2
