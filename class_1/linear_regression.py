@@ -61,78 +61,102 @@ def plot_data(arr1, arr2):
     ax2.tick_params('y', colors='b')
 
     # 2nd subplot
-    axs[1].scatter(y_silver, y_gold, s=1)
+    axs[1].scatter(y1, y2, s=1)
 
     # Show
     fig.show()
 
 
-# We use the london market to get the stock values of gold and silver
-gold = quandl.get("LBMA/GOLD", returns="numpy", start_date="2015-01-01")
-silver = quandl.get("LBMA/SILVER", returns="numpy")
+class Trainer(object):
+    """This class trains a simple linear regression
+    
+    params :
+      X, Y : train set (X) and objective (Y)
+      Ws : list with the Weights of the model
+      alphas : learning rate of every weights
 
-# Retrieve gold value by date
-XY_gold = stock_arr_to_XY(gold)
-XY_silver = stock_arr_to_XY(silver)
-
-# Filter arrays to have gold and silver values of the same dates
-XY_gold, XY_silver = filter_on_same_X(XY_gold, XY_silver)
-x_gold, y_gold = XY_gold
-x_silver, y_silver = XY_silver
-
-# Plot the data
-plot_data(XY_silver, XY_gold)
-
-###############################
-# Now comes the fun !!!
-X, Y = np.array(x_silver), np.array(y_silver), np.array(y_gold)
-
-# Lets hypthetize the gold is a linear function of the silver
-# y = w*x + b
-
-# Initialize parameters
-w = np.random.rand(1)
-b = 0
-
-# Define prediction, error and parameters gradients
-pred = lambda X: np.multiply(X, w) + b
-err = lambda X, Y : np.abs(Y - pred(X))
-dw = lambda X, Y: -(np.multiply((Y-pred(X)), X)).mean()
-db = lambda X, Y: -(Y-pred(X)).mean()
+    Quickly, you also have to define some function :
+    Pred: the prediction function p(X, Ws)
+    Loss: The loss function L(Y, P)
+    dWs: list of function to compute the gradients 
+    """
+    def __init__(self, X, Y, Ws, alphas):
+        super(Trainer, self).__init__()
+        self.X = X
+        self.Y = Y
+        self.Ws = list(Ws)
+        self.alphas = (alphas)*len(Ws) if type(alphas) == 'int' else alphas
+        self.dWs = None
+        self.pred = None
+        self.loss = None
+        
+    def train(self, n_steps=100):
+        for i, (w, dw, alpha) in enumerate(zip(self.Ws, self.dWs, self.alphas)):
+            self.Ws[i] = w - alpha * dw()
 
 
-def train(X, Y, n_steps):
-    global w, b
-    for _ in range(n_steps):
-        w = w - 0.0001 * dw(X, Y)
-        b = b - 0.001 * db(X, Y)
+    def animated_train(self, is_notebook=False):
+        # Draw initial plot
+        fig = plt.figure()
+        ax = plt.axes(xlim=(0, 23), ylim=(0, 1500))
+        ax.scatter(self.X, self.Y, s=1)
+        line, = ax.plot([], [], lw=1, c='r')
+
+        # Initialization function: plot the background of each frame
+        def init():
+            line.set_data([], [])
+            return line,
+
+        # Animation function.
+        def animate(i, *fargs):
+            self = fargs[0]
+            self.train(50)
+
+            X_ = range(0,25)
+            Y_ = self.pred(X_)
+            line.set_data(X_, Y_)
+            return line,
+
+        # Call the animator.  blit=True means only re-draw the parts that have changed.
+        anim = animation.FuncAnimation(fig, animate, 
+                                       init_func=init, fargs=[self,],
+                                       interval=20, blit=True)
+        if is_notebook is True:
+            plt.close(anim._fig)
+            return anim
+        else:
+            plt.show()
 
 
-def animated_train():
-    # Draw initial plot
-    fig = plt.figure()
-    ax = plt.axes(xlim=(0, 23), ylim=(0, 1500))
-    ax.scatter(X, Y, s=1)
-    line, = ax.plot([], [], lw=1, c='r')
+if __name__ == '__main__':
+    # We use the london market to get the stock values of gold and silver
+    gold = quandl.get("LBMA/GOLD", returns="numpy", start_date="2015-01-01")
+    silver = quandl.get("LBMA/SILVER", returns="numpy")
 
-    # Initialization function: plot the background of each frame
-    def init():
-        line.set_data([], [])
-        return line,
+    # Retrieve gold value by date
+    XY_gold = stock_arr_to_XY(gold)
+    XY_silver = stock_arr_to_XY(silver)
 
-    # Animation function.
-    def animate(params):
-        train(X, Y, 200)
+    # Filter arrays to have gold and silver values of the same dates
+    XY_gold, XY_silver = filter_on_same_X(XY_gold, XY_silver)
+    x_gold, y_gold = XY_gold
+    x_silver, y_silver = XY_silver
 
-        X1 = range(0,25)
-        line.set_data(X1, pred(X1))
-        print w, b
-        return line,
+    # Plot the data
+    plot_data(XY_silver, XY_gold)
 
-    # Call the animator.  blit=True means only re-draw the parts that have changed.
-    anim = animation.FuncAnimation(fig, animate, init_func=init,
-                                   interval=10, blit=True)
-    plt.show()
+    ###############################
+    # Now comes the fun !!!
+    _, X, Y = np.array(x_silver), np.array(y_silver), np.array(y_gold)
 
+    Ws = [0.5, 0.5]
+    alphas = (0.0001, 0.01)
+    t = Trainer(X, Y, Ws, alphas)
+    t.pred = lambda X : np.multiply(X, t.Ws[0]) + t.Ws[1]
+    t.loss = lambda : np.power((t.Y - t.pred(X)), 2) * 1 / 2.
+    dl_dp = lambda : -(t.Y - t.pred(X))
+    dl_dw0 = lambda : np.multiply(dl_dp(), X).mean()
+    dl_dw1 = lambda : dl_dp().mean()
+    t.dWs = (dl_dw0, dl_dw1)
+    t.animated_train()
 
-animated_train()
