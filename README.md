@@ -10,3 +10,10 @@ sudo pip install h5py
 sudo pip install tensorflow
 sudo pip install keras
 ```
+
+For ffmpeg :
+``` bash
+sudo add-apt-repository ppa:mc3man/trusty-media
+sudo apt-get update
+sudo apt-get install ffmpeg
+```
