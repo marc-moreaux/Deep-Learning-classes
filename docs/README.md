@@ -5,16 +5,15 @@
 
 This class will go through :
 
-1. Linear and Logistic regression
-    - Linear regression
+1. Linear regression
+    - [Linear regression](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/class_1/linear_regression.ipynb)
     - Back propagation
     - Optimizer
 
+2. Logistic regression
+	- [What is classification](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/class_2/Classification.ipynb)
+	- [Logistic regression](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/class_2/Logistic_regression.ipynb)
+
 2. Deep neural networks
-
-
-
-
-We want to evaluate the effect of x on y, to give a prediction on y given x.  
-We use a linear model : $$Y_i = \alpha + \beta.x_i + \epsilon_i$$  
-Introducing the believe that $Y_i$ is a linear function of $x_i$, assuming an error $\epsilon_i$
+	- [Activations](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/class_2/activations.ipynb)
+	- [Convolutional layer]()
