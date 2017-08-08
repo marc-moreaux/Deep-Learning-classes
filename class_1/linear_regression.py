@@ -42,7 +42,7 @@ def filter_on_same_X(arr1, arr2):
     return (x1, y1), (x2, y2)
 
 
-def plot_data(arr1, arr2):
+def plot_data(arr1, arr2, name1, name2):
     # Plot the data
     x1, y1 = arr1
     x2, y2 = arr2
@@ -53,11 +53,11 @@ def plot_data(arr1, arr2):
     # 1st subplot
     ax2 = axs[0].twinx()
     axs[0].plot(x1, y1, c='r')
-    axs[0].set_ylabel('gold', color='r')
+    axs[0].set_ylabel(name1, color='r')
     axs[0].tick_params('y', colors='r')
 
     ax2.plot(x2, y2, c='b')
-    ax2.set_ylabel('silver', color='b')
+    ax2.set_ylabel(name2, color='b')
     ax2.tick_params('y', colors='b')
 
     # 2nd subplot
@@ -89,36 +89,73 @@ class Trainer(object):
         self.dWs = None
         self.pred = None
         self.loss = None
+        self.losses = []
         
     def train(self, n_steps=100):
         for i, (w, dw, alpha) in enumerate(zip(self.Ws, self.dWs, self.alphas)):
             self.Ws[i] = w - alpha * dw()
 
-
     def animated_train(self, is_notebook=False):
         # Draw initial plot
-        fig = plt.figure()
-        ax = plt.axes(xlim=(0, 23), ylim=(0, 1500))
-        ax.scatter(self.X, self.Y, s=1)
-        line, = ax.plot([], [], lw=1, c='r')
+        # fig = plt.figure()
+        # ax = plt.axes(xlim=(0, 23), ylim=(0, 1500))
+        fig, axs = plt.subplots(3,1)
+        
+        # Subplot1
+        axs[0].set_xlim(0, 23)
+        axs[0].set_ylim(0, 1500)
+        axs[0].scatter(self.X[0], self.Y, s=1)
+        line, = axs[0].plot([], [], lw=1, c='r')
+
+        # Subplot2
+        X_ = range(len(self.X[0]))
+        axs[1].set_ylim(self.Y.min() * 0.9, self.Y.max() * 1.1)
+        axs[1].plot(X_, self.Y, lw=1)
+        line2, = axs[1].plot([], [], lw=1, c='r')
+
+        # Subplot3
+        X_ = range(500)
+        axs[2].set_xlim(0, 500)
+        axs[2].set_ylim(0, 1e5)
+        line3, = axs[2].plot([], [], lw=1, c='r')
+
 
         # Initialization function: plot the background of each frame
         def init():
             line.set_data([], [])
-            return line,
+            line2.set_data([], [])
+            line3.set_data([], [])
+            return line, line2, line3,
 
         # Animation function.
         def animate(i, *fargs):
             self = fargs[0]
+            if i == 0 : 
+                del self.losses[:]
+
+            # Train
             self.train(50)
 
-            X_ = range(0,25)
+            # Subplot1
+            X_ = [range(0,25), ]
             Y_ = self.pred(X_)
-            line.set_data(X_, Y_)
-            return line,
+            line.set_data(X_[0], Y_)
+
+            # Subplot2
+            X_ = [range(len(self.X[0])), ]
+            Y_ = self.pred(self.X)
+            line2.set_data(X_[0], Y_)
+
+            # Subplot3
+            self.losses.append(self.loss())
+            X_ = range(i+1)
+            Y_ = self.losses
+            line3.set_data(X_, Y_)
+
+            return line, line2, line3, 
 
         # Call the animator.  blit=True means only re-draw the parts that have changed.
-        anim = animation.FuncAnimation(fig, animate, 
+        anim = animation.FuncAnimation(fig, animate, frames=500,
                                        init_func=init, fargs=[self,],
                                        interval=20, blit=True)
         if is_notebook is True:
