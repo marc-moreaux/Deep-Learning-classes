@@ -28,7 +28,7 @@ norm2 = lambda p, y: (p - y) ** 2
 d_norm2 = lambda p, y: (p - y) / 2
 
 
-# plot activations
+# plot activations (activations.py)
 def plot_activations(activation, range=[-5, 5, .1], show_id=False):
     x = np.arange(*range)
     y = map(activation, x)
@@ -52,4 +52,37 @@ def plot_activations_distributions(activation, n_subplots=4, xlim=[-2, 2], n_mea
     plt.show()
 
 
- 
+
+# Deep learning Framework !! Wouhou !!
+class Trainer(object):
+    """This is the main class to train a network"""
+    def __init__(self, arg):
+        super(Trainer, self).__init__()
+        self.arg = arg
+
+
+class Linear(object):
+    """Class for a linear layer
+    The input X for a Linear Layer is a vector"""
+    def __init__(self, in_size, units, name=None, kernel_init=None, activation=None):
+        super(Layer, self).__init__()
+        self.arg = name
+        self.units = units
+        self.name = name
+        self.activation = activation or lambda x: x
+        self.activation = np.vectorize(self.activation)
+        self.kernel_init = kernel_init or lambda x: 0
+        self.kernel_init = np.vectorize(self.kernel_init)
+        self.in_size = in_size
+        
+        # Define Weight vector 
+        self.W = np.ndarray(n_in, units)
+        self.W = self.kernel_init(self.W)
+
+    def forward(self, X):
+        Y = np.dot(self.W.T, X)
+        return self.activation(Y)
+
+
+    def backward(self, X):
+        return X
