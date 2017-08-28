@@ -6,21 +6,28 @@ from keras.datasets import mnist
 
 
 # Load MNIST
-def load_MNIST():
+def load_MNIST(binary=False):
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
     # Normalize the data
     x_train = x_train/255.
     x_test = x_test/255.
 
-    # To categorical
-    y_train = keras.utils.to_categorical(y_train, 10)
-    y_test = keras.utils.to_categorical(y_test, 10)
+    if binary == False:
+        # To categorical
+        y_train = keras.utils.to_categorical(y_train, 10)
+        y_test = keras.utils.to_categorical(y_test, 10)
+    else:
+        # Only keep zeros and ones
+        x_train = x_train[y_train < 2]
+        y_train = y_train[y_train < 2]
+        x_test = x_test[y_test < 2]
+        y_test = y_test[y_test < 2]
 
     return (x_train, y_train), (x_test, y_test)
 
 
-# Load a dataset of sighnal going upwards and downwards
+# Load a dataset of signal going upwards and downwards
 def load_up_down(n_samples=60):
 
     def signal(a, b):
@@ -107,42 +114,6 @@ def plot_activations_distributions(activation, n_subplots=4, xlim=[-2, 2], n_mea
         y = map(activation,  y)
         print "after %d iteration, mean is %.2f and std is %.2f" % (i, np.mean(y), np.std(y))
     plt.show()
-
-
-
-# Deep learning Framework !! Wouhou !!
-class Trainer(object):
-    """This is the main class to train a network"""
-    def __init__(self, arg):
-        super(Trainer, self).__init__()
-        self.arg = arg
-
-
-class Linear(object):
-    """Class for a linear layer
-    The input X for a Linear Layer is a vector"""
-    def __init__(self, in_size, units, name=None, kernel_init=None, activation=None):
-        super(Layer, self).__init__()
-        self.arg = name
-        self.units = units
-        self.name = name
-        self.activation = activation or (lambda x: x)
-        self.activation = np.vectorize(self.activation)
-        self.kernel_init = kernel_init or (lambda x: 0)
-        self.kernel_init = np.vectorize(self.kernel_init)
-        self.in_size = in_size
-        
-        # Define Weight vector 
-        self.W = np.ndarray(n_in, units)
-        self.W = self.kernel_init(self.W)
-
-    def forward(self, X):
-        Y = np.dot(self.W.T, X)
-        return self.activation(Y)
-
-
-    def backward(self, X):
-        return X
 
 
 class Trainer(object):
