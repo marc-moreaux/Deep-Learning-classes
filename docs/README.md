@@ -25,9 +25,22 @@ Lets take a look at some classification techniques easy to experiment with [What
 
 ---
 ## 2-3. Little step into DL
-As an introduction to deep learning, we start with [Linear regression](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/linear_regression.ipynb), where we explain the basics of artificial neurons, distances, loss, and gradient descent.
+As an introduction to deep learning, we start with [Linear regression](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/linear_regression.ipynb), where we explain the basics of artificial neurons, distances, loss, and gradient descent. 
 
-Afterwards, we dig deeper into Deep Learning with [logistic regression](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/Logistic_regression.ipynb) and [multinomial logistic regression]()
+>In short, Linear regression algorithm consists in reducing a loss function
+![equation](http://latex.codecogs.com/gif.latex?l%20%3A%20%5Cmathbb%7BR%7D%5E%7Bn*m%7D%20%5Cto%20%5Cmathbb%7BR%7D%5E%7Bm%7D)
+Where *m* is the amount of training samples, and *n*, the dimensionality of the input samples.
+The aim of this algorithm is to map a vectors
+![equation](http://latex.codecogs.com/gif.latex?%5Cmathbb%7BR%7D%5E%7Bn%7D)
+to a real value
+![equation](http://latex.codecogs.com/gif.latex?%5Cmathbb%7BR%7D)
+It may be used to correlate the price of silver and copper to the one of gold (example of the notebook).
+
+Afterwards, we dig deeper into Deep Learning with [logistic regression](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/Logistic_regression.ipynb) and [multinomial logistic regression]().
+
+>In short, Multinomial Logistic regression algorithm consists in reducing a loss function 
+![equation](http://latex.codecogs.com/gif.latex?l%20%3A%20%5Cmathbb%7BR%7D%5E%7Bn*m%7D%20%5Cto%20%5Cmathbb%7BR%7D%5E%7Bm*c%7D)
+Where *m* is the amount of training samples, *n*, the dimensionality of the input samples and *c* the amount of classes a sample can belong to.
 
 ---
 ## 4. Convolutional Neural Network (CNN)
