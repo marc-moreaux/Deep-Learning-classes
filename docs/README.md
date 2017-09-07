@@ -8,7 +8,7 @@ This class will go through :
 ## 1. Introduction
 In the first class, we'll define the concept of classification which will be applied to both visual and audio signals.
 Throughout the class, the datasets we'll explore are:
-- [MNIST]()
+- [MNIST](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/dataset_MNIST.ipynb)
 - [Audio signals]()
 - [Stock data]()
 
@@ -42,9 +42,8 @@ We upscale our classifications problems to recognize real world sounds or images
 [Keras example]()
 
 
-
+---
 TODO notebooks : 
-[MNIST]()
 [Audio signals]()
 [Stock data]()
 [logistic regression](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/Logistic_regression.ipynb)
@@ -53,3 +52,9 @@ TODO notebooks :
 [optimizers]()
 [Tensorflow example]()
 [Keras example]()
+
+
+Verified notebooks:
+[Linear regression](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/linear_regression.ipynb)
+[Activation functions](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/activation.ipynb)
+[Weights initialization](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/activations_initializers.ipynb)
