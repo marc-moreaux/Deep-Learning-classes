@@ -5,6 +5,7 @@
 
 This class will go through :
 
+---
 ## 1. Introduction
 In the first class, we'll define the concept of classification which will be applied to both visual and audio signals.
 Throughout the class, the datasets we'll explore are:
@@ -22,39 +23,41 @@ Throughout the years, many techniques have been used to perform visual classific
 
 Lets take a look at some classification techniques easy to experiment with [What is classification](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/Classification.ipynb)
 
-
+---
 ## 2-3. Little step into DL
 As an introduction to deep learning, we start with [Linear regression](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/linear_regression.ipynb), where we explain the basics of artificial neurons, distances, loss, and gradient descent.
 
 Afterwards, we dig deeper into Deep Learning with [logistic regression](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/Logistic_regression.ipynb) and [multinomial logistic regression]()
 
-
+---
 ## 4. Convolutional Neural Network (CNN)
 As this classification and brainy idea is understood, we go further into image and audio classification with [Convolutional Neural Network]() (CNN) in a multinomial logistic regression problem and start experimenting with different activation functions and some new issues:
 - [Activation functions](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/activation.ipynb)
 - [Weights initialization](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/activations_initializers.ipynb)
 - [optimizers]()
 
-
+---
 ## 5. Upscale our classification
 We upscale our classifications problems to recognize real world sounds or images using famous frameworks as Tensorflow or Keras.
-[Tensorflow example]()
-[Keras example]()
+- [Tensorflow example]()
+- [Keras example]()
+
 
 
 ---
-TODO notebooks : 
-[Audio signals]()
-[Stock data]()
-[logistic regression](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/Logistic_regression.ipynb)
-[multinomial logistic regression]()
-[Convolutional Neural Network]()
-[optimizers]()
-[Tensorflow example]()
-[Keras example]()
+##### TODO notebooks : 
+- [Audio signals]()
+- [Stock data]()
+- [logistic regression](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/Logistic_regression.ipynb)
+- [multinomial logistic regression]()
+- [Convolutional Neural Network]()
+- [optimizers]()
+- [Tensorflow example]()
+- [Keras example]()
 
 
-Verified notebooks:
-[Linear regression](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/linear_regression.ipynb)
-[Activation functions](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/activation.ipynb)
-[Weights initialization](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/activations_initializers.ipynb)
+##### Verified notebooks:
+- [MNIST](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/dataset_MNIST.ipynb)
+- [Linear regression](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/linear_regression.ipynb)
+- [Activation functions](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/activation.ipynb)
+- [Weights initialization](https://nbviewer.jupyter.org/github/marc-moreaux/Deep-Learning-classes/blob/master/notebooks/activations_initializers.ipynb)
